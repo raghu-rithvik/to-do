@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDo</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="card">
+      <h2>To-Do List<img src="images/icon.png" /></h2>
+      <div class="intext">
+        <input
+          type="text"
+          id="input-text"
+          placeholder="Enter Items"
+          spellcheck="false"
+        />
+        <button onclick="addTask()">Add Item</button>
+      </div>
+      <div class="list-container">
+        <ul id="list-container">
+
+        </ul>
+      </div>
+    </div>
+    <div id="alertModal" class="modal">
+      <div class="modal-content">
+        <p>Please add an item to add</p>
+        <span class="closeBtn">&times;</span>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
