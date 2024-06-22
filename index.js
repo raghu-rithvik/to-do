@@ -16,6 +16,9 @@ function addTask(){
         div.addEventListener('dragover', dragOver);
         div.addEventListener('drop', drop);
         div.addEventListener('dragend', dragEnd);
+        div.addEventListener('touchstart', touchStart);
+        div.addEventListener('touchmove', touchMove);
+        div.addEventListener('touchend', touchEnd);
         div.appendChild(li);
         let span1=document.createElement("span");
         span1.classList.add("span1")
@@ -128,3 +131,34 @@ function dragEnd(e) {
   this.style.opacity = 100;
   draggedItem = null;
 saveData()}
+
+function touchStart(e) {
+  e.preventDefault();
+  this.parentElement.classList.add('dragging');
+  this.style.opacity = 0;
+  this.style.cursor = "grab";
+}
+
+function touchMove(e) {
+  e.preventDefault();
+  const touch = e.touches[0];
+  const element = document.elementFromPoint(touch.clientX, touch.clientY);
+  if (element && element !== draggedItem && element.tagName === 'LI') {
+    const items = Array.from(draggedItem.parentNode.children);
+    const draggedIndex = items.indexOf(draggedItem);
+    const targetIndex = items.indexOf(element);
+
+    if (draggedIndex < targetIndex) {
+      element.after(draggedItem);
+    } else {
+      element.before(draggedItem);
+    }
+  }
+}
+
+function touchEnd(e) {
+  this.parentElement.classList.remove('dragging');
+  this.style.opacity = 100;
+  draggedItem = null;
+saveData()
+}
