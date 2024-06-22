@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Mooli&family=Poppins:wght@100&family=Sofia&family=Young+Serif&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0");
 *{
     margin: 0;
     padding: 0;
@@ -10,33 +10,13 @@
 body{
     background-color: #222;
 }
-nav{
+
+.list-div{
     display: flex;
-    flex-direction: row;
-    justify-content: left;
-    flex-wrap: wrap;
 }
-nav ul li{
-    display: inline-block;
-    margin: 20px 20px;
-}
-nav ul li a{
-    text-decoration: none;
-    color: white;
-    position: relative;
-}
-nav ul li a::after{
-    content: '';
-    width: 0;
-    height: 2px;
-    background: #ff004f;
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    transition: 0.5s;
-  }
-nav ul li a:hover::after{
-    width: 75%;
+.dragging{
+    cursor: grab;
+    /* background-color: black; */
 }
 .card{
     width: 100%;
@@ -98,8 +78,14 @@ nav ul li a:hover::after{
     border: #222;
     cursor: pointer;
     position: relative;
+    width: 92%;
 
 }
+.list-container ul li.dragging {
+    opacity: 0.5;
+    background-color: black;
+    color: whitesmoke;
+  }
 .list-container ul li::before{
     content: '';
     position: absolute;
@@ -119,7 +105,7 @@ ul li.checked{
 ul li.checked::before{
     background-image: url(images/checked.png); 
 }
-ul li span{
+.span1{
     position: absolute;
     right: 0;
     top: 5px;
@@ -130,7 +116,16 @@ ul li span{
     text-align: center;
     border-radius: 50%;
 }
-ul li span:hover{
+.span2{
+
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+}
+.span2:hover{
+    cursor:grab
+}
+.span1:hover{
     background: #a6a7a7;
 }
 .modal {
