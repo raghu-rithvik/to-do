@@ -6,12 +6,27 @@ function addTask(){
         modalDisplay()
     }
     else{
+        let div=document.createElement("div")
+        div.classList.add("list-div")
+        listContainer.appendChild(div)
         let li=document.createElement("li");
         li.innerHTML=inputBox.value;
-        listContainer.appendChild(li);
-        let span=document.createElement("span");
-        span.innerHTML="\u00d7";
-        li.appendChild(span);
+        div.setAttribute('draggable', true);
+        div.addEventListener('dragstart', dragStart);
+        div.addEventListener('dragover', dragOver);
+        div.addEventListener('drop', drop);
+        div.addEventListener('dragend', dragEnd);
+        div.appendChild(li);
+        let span1=document.createElement("span");
+        span1.classList.add("span1")
+        span1.innerHTML="\u00d7";
+        li.appendChild(span1);
+        let span2=document.createElement("span");
+        span2.classList.add("material-symbols-outlined")
+        span2.classList.add("span2")
+        span2.innerHTML="drag_handle";
+        // li.appendChild(span2);
+        li.parentNode.insertBefore(span2, li);
         saveData();
     }
     inputBox.value='';
@@ -27,7 +42,8 @@ listContainer.addEventListener("click", function(e){
         saveData();
     }
     else if(e.target.tagName === "SPAN"){
-        e.target.parentElement.remove();
+        let temp=e.target.parentElement
+        temp.parentElement.remove();
         saveData();
 
     }
@@ -37,6 +53,14 @@ function saveData(){
 }
 function displayData(){
     listContainer.innerHTML=localStorage.getItem("data");
+    const listItems = document.querySelectorAll('#list-container div');
+    listItems.forEach(item => {
+    item.setAttribute('draggable', true);
+    item.addEventListener('dragstart', dragStart);
+    item.addEventListener('dragover', dragOver);
+    item.addEventListener('drop', drop);
+    item.addEventListener('dragend', dragEnd);
+});
 }
 displayData();
 
@@ -64,3 +88,43 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
+const listItems = document.querySelectorAll('#list-container li');
+let draggedItem = null;
+
+function dragStart(e) {
+  draggedItem = this;
+  setTimeout(() => {
+    this.parentElement.classList.add('dragging');
+    this.style.opacity = 0;
+    this.style.cursor = "grab";
+    // this.style.background-color = "grab";
+  }, 0);
+}
+
+function dragOver(e) {
+  e.preventDefault();
+}
+
+function drop(e) {
+    if (draggedItem && this !== draggedItem) {
+      
+  e.preventDefault();
+  if (this !== draggedItem) {
+    const items = Array.from(this.parentNode.children);
+    const draggedIndex = items.indexOf(draggedItem);
+    const targetIndex = items.indexOf(this);
+
+    if (draggedIndex < targetIndex) {
+      this.after(draggedItem);
+    } else {
+      this.before(draggedItem);
+    }
+  }
+}}
+
+function dragEnd(e) {
+  this.parentElement.classList.remove('dragging');
+  this.style.opacity = 100;
+  draggedItem = null;
+saveData()}
