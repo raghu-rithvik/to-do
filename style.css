@@ -121,6 +121,7 @@ ul li.checked::before{
     display: flex;
     align-content: center;
     flex-wrap: wrap;
+    pointer-events: none;
 }
 .span2:hover{
     cursor:grab
