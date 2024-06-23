@@ -131,12 +131,20 @@ function dragEnd(e) {
   this.style.opacity = 100;
   draggedItem = null;
 saveData()}
+const container = document.querySelector('#list-container');
 
+container.addEventListener('touchstart', (e) => {
+  if (e.target.tagName === 'LI') {
+    draggedItem = e.target;
+    this.classList.add('dragging');
+    e.preventDefault();
+  }
+});
 function touchStart(e) {
-  e.preventDefault();
   this.parentElement.classList.add('dragging');
   this.style.opacity = 0;
   this.style.cursor = "grab";
+  e.preventDefault();
 }
 
 function touchMove(e) {
